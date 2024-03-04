@@ -3,7 +3,7 @@ package Animals;
 public class Pet extends AnimalAbstract {
 
     public Pet() {
-        name = "Домащние";
+        name = "Домашние";
     }
 
     public String getBreed() {
