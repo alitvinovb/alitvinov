@@ -1,8 +1,7 @@
 package Animals;
 
 public class Wolf extends Predator {
-    public Wolf()
-    {
+    public Wolf() {
         name = "Волк";
     }
 }

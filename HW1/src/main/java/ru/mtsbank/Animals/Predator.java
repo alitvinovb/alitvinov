@@ -1,24 +1,23 @@
 package Animals;
 
 public class Predator extends AnimalAbstract {
-    public Predator()
-    {
+    public Predator() {
         name = "Хищник";
     }
-    public String getBreed()
-    {
+
+    public String getBreed() {
         return breed;
     }
-    public String getName()
-    {
+
+    public String getName() {
         return name;
     }
-    public Double getCost()
-    {
+
+    public Double getCost() {
         return cost;
     }
-    public String getCharacter()
-    {
+
+    public String getCharacter() {
         return character;
     }
 }

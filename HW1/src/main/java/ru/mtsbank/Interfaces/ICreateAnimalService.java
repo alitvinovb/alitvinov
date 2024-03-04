@@ -4,30 +4,23 @@ import Animals.Cat;
 import Animals.Dog;
 import Animals.Wolf;
 
-public interface ICreateAnimalService  {
-    default void CreateAnimals(int number) {
+public interface ICreateAnimalService {
+    default void createAnimals(int number) {
         IAnimal[] animals = new IAnimal[number];
 
-        for(int i=0; i<number;i++)
-        {
-            if (i == 0)
-            {
+        for (int i = 0; i < number; i++) {
+            if (i == 0) {
                 animals[i] = new Wolf();
-            }
-            else if (i>3)
-            {
+            } else if (i > 3) {
                 animals[i] = new Dog();
-            }
-            else
-            {
+            } else {
                 animals[i] = new Wolf();
             }
         }
-        for(var animal : animals)
-        {
+        for (var animal : animals) {
             System.out.println(animal.getName());
         }
     }
 
-    public void CreateAnimalsDoWhile(int number);
+    public void createAnimalsDoWhile(int number);
 }

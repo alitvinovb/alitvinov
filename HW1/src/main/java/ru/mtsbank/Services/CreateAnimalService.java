@@ -10,57 +10,44 @@ import static java.lang.System.in;
 
 public class CreateAnimalService implements ICreateAnimalService {
     @Override
-    public void CreateAnimals(int number) {
+    public void createAnimals(int number) {
         IAnimal[] animals = new IAnimal[number];
 
-        for(int i=0; i<number;i++)
-        {
-            if (i == 0)
-            {
+        int i = 0;
+        while (i < number) {
+            if (i == 0) {
                 animals[i] = new Dog();
-            }
-            else if (i>3)
-            {
+            } else if (i > 3) {
                 animals[i] = new Cat();
-            }
-            else
-            {
+            } else {
                 animals[i] = new Wolf();
             }
+            i++;
         }
-        for(var animal : animals)
-        {
+        for (var animal : animals) {
             System.out.println(animal.getName());
         }
     }
 
-    public void CreateAnimalsSuper(int number)
-    {
-        ICreateAnimalService.super.CreateAnimals(number);
+    public void createAnimalsSuper(int number) {
+        ICreateAnimalService.super.createAnimals(number);
     }
 
-    public void CreateAnimalsDoWhile(int number) {
+    public void createAnimalsDoWhile(int number) {
         IAnimal[] animals = new IAnimal[number];
-        int i =0;
-        do
-        {
-            if (i == 0)
-            {
+        int i = 0;
+        do {
+            if (i == 0) {
                 animals[i] = new Dog();
-            }
-            else if (i>3)
-            {
+            } else if (i > 3) {
                 animals[i] = new Cat();
-            }
-            else
-            {
+            } else {
                 animals[i] = new Wolf();
             }
             i++;
-        } while (i<number);
+        } while (i < number);
 
-        for(var animal : animals)
-        {
+        for (var animal : animals) {
             System.out.println(animal.getName());
         }
     }

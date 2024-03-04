@@ -1,4 +1,4 @@
 package Animals;
 
-public class Shark extends Predator{
+public class Shark extends Predator {
 }

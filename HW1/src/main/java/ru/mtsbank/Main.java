@@ -1,4 +1,5 @@
 package ru.mtsbank;
+
 import Services.CreateAnimalService;
 
 public class Main {
@@ -7,12 +8,12 @@ public class Main {
         CreateAnimalService animalService = new CreateAnimalService();
 
         System.out.println("CreateAnimals");
-        animalService.CreateAnimals(10);
+        animalService.createAnimals(10);
 
         System.out.println("CreateAnimalsSuper");
-        animalService.CreateAnimalsSuper(10);
+        animalService.createAnimalsSuper(10);
 
         System.out.println("CreateAnimalsDoWhile");
-        animalService.CreateAnimalsDoWhile(10);
-        }
+        animalService.createAnimalsDoWhile(10);
     }
+}
