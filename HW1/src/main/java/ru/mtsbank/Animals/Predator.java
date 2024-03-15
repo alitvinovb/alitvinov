@@ -1,8 +1,12 @@
-package Animals;
+package ru.mtsbank.Animals;
+
+import java.time.LocalDate;
 
 public class Predator extends AnimalAbstract {
-    public Predator() {
+    public Predator(LocalDate birdthDate) {
+        super(birdthDate);
         name = "Хищник";
+        this.birdthDate = birdthDate;
     }
 
     public String getBreed() {

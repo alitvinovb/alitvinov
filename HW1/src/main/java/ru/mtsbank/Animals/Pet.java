@@ -1,8 +1,11 @@
-package Animals;
+package ru.mtsbank.Animals;
+
+import java.time.LocalDate;
 
 public class Pet extends AnimalAbstract {
 
-    public Pet() {
+    public Pet(LocalDate birdthDate) {
+        super(birdthDate);
         name = "Домашние";
     }
 

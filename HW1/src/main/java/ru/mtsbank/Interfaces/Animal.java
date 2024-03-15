@@ -1,6 +1,9 @@
-package Interfaces;
+package ru.mtsbank.Interfaces;
 
-public interface IAnimal {
+
+import java.time.LocalDate;
+
+public interface Animal {
     public String getBreed();
 
     public String getName();
@@ -8,4 +11,6 @@ public interface IAnimal {
     public Double getCost();
 
     public String getCharacter();
+
+    public LocalDate getBirdthDate();
 }
