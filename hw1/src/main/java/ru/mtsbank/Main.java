@@ -40,5 +40,15 @@ public class Main {
 
         searchService.checkLeapYearAnimal(new Dog(LocalDate.of(2023,11,1)));
         searchService.checkLeapYearAnimal(new Dog(LocalDate.of(2020,12,4)));
+
+        var hashMap = animalService.createAnimalsRandom(20);
+        hashMap.forEach((key, value) ->
+        {
+            System.out.println(key);
+            for(var animal : value)
+            {
+                System.out.println(animal.getName() + " " + animal.getBirdthDate());
+            }
+        });
     }
 }
