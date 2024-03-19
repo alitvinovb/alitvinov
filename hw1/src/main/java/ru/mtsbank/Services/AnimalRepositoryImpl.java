@@ -12,36 +12,31 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AnimalRepositoryImpl implements AnimalRepository {
-    public Map<String, LocalDate> findLeapYearNames(List<AnimalAbstract> animals)
-    {
+    public Map<String, LocalDate> findLeapYearNames(List<AnimalAbstract> animals) {
         if (animals == null)
             return null;
 
         Map<String, LocalDate> result = new HashMap<String, LocalDate>();
-        for(var animal : animals)
-        {
+        for (var animal : animals) {
             result.put(animal.getClass().getName() + " " + animal.getName(), animal.getBirdthDate());
         }
 
         return result;
     }
 
-    public Map<Animal, Integer> findOlderAnimal(List<AnimalAbstract> animals, int age)
-    {
+    public Map<Animal, Integer> findOlderAnimal(List<AnimalAbstract> animals, int age) {
         if (animals == null)
             return null;
 
         Map<Animal, Integer> result = new HashMap<Animal, Integer>();
         AnimalAbstract olderAnimal = null;
-        for(var animal : animals)
-        {
+        for (var animal : animals) {
             var bDay = animal.getBirdthDate();
             if (bDay != null) {
                 if (bDay.plusYears(age).isBefore(LocalDate.now())) {
                     result.put(animal, Period.between(bDay, LocalDate.now()).getYears());
                 }
-                if (olderAnimal == null || olderAnimal.getBirdthDate().isBefore(bDay))
-                {
+                if (olderAnimal == null || olderAnimal.getBirdthDate().isBefore(bDay)) {
                     olderAnimal = animal;
                 }
             }
@@ -55,8 +50,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         return result;
     }
 
-    public Map<String, Long> findDuplicate(List<AnimalAbstract> animals)
-    {
+    public Map<String, Long> findDuplicate(List<AnimalAbstract> animals) {
         if (animals == null)
             return null;
 
