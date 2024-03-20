@@ -9,11 +9,10 @@ public class CreateAnimalServiceImplTest {
 
     @Test
     public void createAnimalsRandom() {
-        CreateAnimalServiceImpl service = new CreateAnimalServiceImpl();
+        var service = new CreateAnimalServiceImpl();
         var hashMap = service.createAnimalsRandom(50);
 
         int count = 0;
-
         for (var entry : hashMap.entrySet()) {
             count = count + entry.getValue().size();
         }
