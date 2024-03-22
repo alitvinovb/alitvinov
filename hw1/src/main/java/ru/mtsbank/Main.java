@@ -65,11 +65,22 @@ public class Main {
         List<AnimalAbstract> animals = new ArrayList<AnimalAbstract>();
         animals.add(new Dog(LocalDate.of(2023,1,1), 20.0));
         animals.add(new Cat(LocalDate.of(2012,1,1),50.0));
+        animals.add(new Cat(LocalDate.of(2015,1,1),60.0));
         animals.add(new Cat(LocalDate.of(2022,1,1),60.0));
         animals.add(new Wolf(LocalDate.of(2020,1,1),30.0));
         animals.add(new Cat(LocalDate.of(2020,1,1),40.0));
         animals.add(new Shark(LocalDate.of(2020,1,1),10.0));
 
-        repo.findMinCost(animals);
+        var minCostResult = repo.findMinCost(animals);
+        for(var animal : minCostResult)
+        {
+            System.out.println(animal);
+        };
+
+        var animalResult = repo.findOldAndExpensive(animals);
+        for(var animal : animalResult)
+        {
+            System.out.println(animal.getName() + animal.getBirdthDate());
+        };
     }
 }
