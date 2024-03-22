@@ -5,7 +5,11 @@ import java.time.LocalDate;
 public class Dog extends Pet {
     public Dog(LocalDate birdthDate) {
         super(birdthDate);
-        //cost = 10.0;
+        name = "Собака";
+    }
+
+    public Dog(LocalDate birdthDate, Double cost) {
+        super(birdthDate, cost);
         name = "Собака";
     }
 }

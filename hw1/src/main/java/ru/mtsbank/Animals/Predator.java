@@ -9,6 +9,11 @@ public class Predator extends AnimalAbstract {
         this.birdthDate = birdthDate;
     }
 
+    public Predator(LocalDate birdthDate, Double cost) {
+        super(birdthDate, cost);
+        name = "Хищник";
+    }
+
     public String getBreed() {
         return breed;
     }

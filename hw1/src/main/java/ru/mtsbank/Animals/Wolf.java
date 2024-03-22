@@ -4,7 +4,12 @@ import java.time.LocalDate;
 
 public class Wolf extends Predator {
     public Wolf(LocalDate birdthDate) {
-super(birdthDate);
-        this.birdthDate = birdthDate;
+        super(birdthDate);
+        name ="Волк";
+    }
+
+    public Wolf(LocalDate birdthDate, Double cost) {
+        super(birdthDate, cost);
+        name ="Волк";
     }
 }

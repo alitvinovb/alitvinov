@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+
 public class AnimalRepositoryImpl implements AnimalRepository {
     public Map<String, LocalDate> findLeapYearNames(List<AnimalAbstract> animals) {
         if (animals == null)
@@ -58,5 +60,24 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                 .collect(Collectors.groupingBy(AnimalAbstract::getName, Collectors.counting()));
 
         return result;
+    }
+
+    public int findAverageAge(List<AnimalAbstract> animals) {
+        if (animals == null || animals.isEmpty())
+            return 0;
+
+        return (int)animals.stream().mapToInt(x -> Period.between(x.getBirdthDate(), LocalDate.now()).getYears())
+                .average().orElse(0);
+    }
+
+    public void findMinCost(List<AnimalAbstract> animals) {
+        List<AnimalAbstract> result = animals.stream().sorted((o1, o2)->o1.getCost().
+                        compareTo(o2.getCost())).limit(3).sorted(comparing(Animal::getName).reversed()).
+                collect(Collectors.toList());
+
+        for(var animal : result)
+        {
+            System.out.println(animal.getName());
+        };
     }
 }

@@ -10,4 +10,7 @@ public interface AnimalRepository {
     public Map<String, LocalDate> findLeapYearNames(List<AnimalAbstract> animals);
     public Map<Animal, Integer> findOlderAnimal(List<AnimalAbstract> animals, int age);
     public Map<String, Long> findDuplicate(List<AnimalAbstract> animals);
+    public int findAverageAge(List<AnimalAbstract> animals);
+
+    public void findMinCost(List<AnimalAbstract> animals);
 }

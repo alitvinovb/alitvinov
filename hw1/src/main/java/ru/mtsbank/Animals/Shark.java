@@ -5,6 +5,11 @@ import java.time.LocalDate;
 public class Shark extends Predator {
     public Shark(LocalDate birdthDate) {
         super(birdthDate);
-        this.birdthDate = birdthDate;
+        name = "Акула";
+    }
+
+    public Shark(LocalDate birdthDate, Double cost) {
+        super(birdthDate ,cost);
+        name = "Акула";
     }
 }

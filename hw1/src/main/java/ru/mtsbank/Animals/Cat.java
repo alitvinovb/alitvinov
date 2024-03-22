@@ -7,4 +7,9 @@ public class Cat extends Pet {
         super(birdthDate);
         name = "Мурзик";
     }
+
+    public Cat(LocalDate birdthDate, Double cost) {
+        super(birdthDate, cost);
+        name = "Мурзик";
+    }
 }

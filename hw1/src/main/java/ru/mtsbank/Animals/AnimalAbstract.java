@@ -7,7 +7,12 @@ import java.time.LocalDate;
 public abstract class AnimalAbstract implements Animal {
     public AnimalAbstract(LocalDate birdthDate)
     {
-     this.birdthDate = birdthDate;
+        this.birdthDate = birdthDate;
+    }
+    public AnimalAbstract(LocalDate birdthDate, Double cost)
+    {
+        this.birdthDate = birdthDate;
+        this.cost = cost;
     }
     protected String breed;
     protected String name;

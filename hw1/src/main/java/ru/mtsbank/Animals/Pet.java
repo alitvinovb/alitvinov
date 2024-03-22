@@ -9,6 +9,11 @@ public class Pet extends AnimalAbstract {
         name = "Домашние";
     }
 
+    public Pet(LocalDate birdthDate, Double cost) {
+        super(birdthDate, cost);
+        name = "Домашние";
+    }
+
     public String getBreed() {
         return breed;
     }
