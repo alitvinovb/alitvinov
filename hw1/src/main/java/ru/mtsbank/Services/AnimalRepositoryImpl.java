@@ -66,14 +66,14 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         if (animals == null || animals.isEmpty())
             return 0;
 
-        return (int)animals.stream().mapToInt(x -> Period.between(x.getBirdthDate(), LocalDate.now()).getYears())
+        return (int) animals.stream().mapToInt(x -> Period.between(x.getBirdthDate(), LocalDate.now()).getYears())
                 .average().orElse(0);
     }
 
-    public  List<String> findMinCost(List<AnimalAbstract> animals) {
-        List<String> result = animals.stream().sorted((o1, o2)->o1.getCost().
+    public List<String> findMinCost(List<AnimalAbstract> animals) {
+        List<String> result = animals.stream().sorted((o1, o2) -> o1.getCost().
                         compareTo(o2.getCost())).limit(3).sorted(comparing(Animal::getName).reversed()).
-                map(x->x.getName()).
+                map(x -> x.getName()).
                 collect(Collectors.toList());
 
         return result;
@@ -83,10 +83,10 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         if (animals == null || animals.isEmpty())
             return null;
 
-        var avgCost  = animals.stream().mapToDouble(x -> x.getCost()).average().orElse(0);
+        var avgCost = animals.stream().mapToDouble(x -> x.getCost()).average().orElse(0);
         var result = animals.stream()
                 .filter(item -> item.getCost() > avgCost && Period.between(item.getBirdthDate(), LocalDate.now()).getYears() > 5)
-                .sorted((o1, o2)->o1.getBirdthDate().
+                .sorted((o1, o2) -> o1.getBirdthDate().
                         compareTo(o2.getBirdthDate()))
                 .collect(Collectors.toList());
 

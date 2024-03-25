@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class CreateAnimalServiceImpl implements CreateAnimalService {
+
     @Override
     public void createAnimals(int number) {
         Animal[] animals = new Animal[number];
@@ -90,5 +91,4 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
 
         return animalMap;
     }
-
 }

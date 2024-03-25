@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 public class SearchServiceImpl implements SearchService {
     public void checkLeapYearAnimal(Animal animal) throws InvalidAnimalException, InvalidAnimalBirthDateException {
-        if (animal == null)  {
+        if (animal == null) {
             throw new InvalidAnimalException("На вход пришёл некорректный объект " + LocalDate.now());
         }
 
@@ -21,8 +21,7 @@ public class SearchServiceImpl implements SearchService {
         int remainder = birdthDate.getYear() % 4;
         if (remainder == 0) {
             System.out.println(animal.getName() + " родился в високсный год " + animal.getBirdthDate());
-        }
-        else {
+        } else {
             System.out.println(animal.getName() + " родился в не високсный год " + animal.getBirdthDate());
         }
 
