@@ -5,14 +5,19 @@ import ru.mtsbank.Exceptions.InvalidAnimalBirthDateException;
 import ru.mtsbank.Exceptions.InvalidAnimalException;
 import ru.mtsbank.Interfaces.AnimalRepository;
 import ru.mtsbank.Services.AnimalRepositoryImpl;
+import ru.mtsbank.Services.CounterImpl;
 import ru.mtsbank.Services.CreateAnimalServiceImpl;
 import ru.mtsbank.Services.SearchServiceImpl;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Main {
-    public static void main(String[] args) throws InvalidAnimalException, InvalidAnimalBirthDateException {
+
+    public static void main(String[] args) throws InvalidAnimalException, InvalidAnimalBirthDateException, InterruptedException, ExecutionException {
 
         CreateAnimalServiceImpl animalService = new CreateAnimalServiceImpl();
 
@@ -75,5 +80,78 @@ public class Main {
         for (var animal : animalResult) {
             System.out.println(animal.getName() + animal.getBirdthDate());
         }
+
+        var counter = new CounterImpl();
+        var executor = Executors.newFixedThreadPool(10);
+
+        var future1 = executor.submit(() -> {
+            try {
+                Thread.sleep(400);
+            } catch (Exception ex) {
+            }
+            counter.Increment();
+            System.out.println("Task1");
+        });
+        var future2 = executor.submit(() -> {
+            counter.Increment();
+            System.out.println("Task2");
+        });
+        var future3 = executor.submit(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (Exception ex) {
+            }
+            counter.Increment();
+            System.out.println("Task3");
+        });
+        var future4 = executor.submit(() -> {
+            try {
+                Thread.sleep(100);
+            } catch (Exception ex) {
+            }
+            counter.Increment();
+            System.out.println("Task4");
+        });
+        var future5 = executor.submit(() -> {
+            counter.Increment();
+            System.out.println("Task5");
+        });
+        System.out.println("Counter:" + counter.GetValue());
+
+        future1.get();
+        future2.get();
+        future3.get();
+        future4.get();
+        future5.get();
+
+        System.out.println("Counter after wait:" + counter.GetValue());
+        executor.shutdown();
+
+        executor = Executors.newFixedThreadPool(10);
+        List<Future<?>> futures = new ArrayList<Future<?>>();
+        for (int i = 0; i < 10; i++) {
+            futures.add(executor.submit(runnableWithParam(i)));
+        }
+        futures.forEach(f-> {
+            try {
+                f.get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        executor.shutdown();
+    }
+
+    private static Runnable runnableWithParam(final int i) {
+        return new Runnable() {
+            @Override
+            public void run() {
+                var rnd = new Random();
+                int genResult = rnd.nextInt(100);
+                System.out.println("Task " + i + ", generation result:" + genResult);
+            }
+        };
     }
 }
