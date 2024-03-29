@@ -12,6 +12,7 @@ import ru.mtsbank.Services.SearchServiceImpl;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
@@ -81,6 +82,10 @@ public class Main {
             System.out.println(animal.getName() + animal.getBirdthDate());
         }
 
+        Task8Parallel();
+    }
+
+    private static void Task8Parallel() throws ExecutionException, InterruptedException {
         var counter = new CounterImpl();
         var executor = Executors.newFixedThreadPool(10);
 
@@ -132,9 +137,30 @@ public class Main {
         for (int i = 0; i < 10; i++) {
             futures.add(executor.submit(runnableWithParam(i)));
         }
-        futures.forEach(f-> {
+        futures.forEach(f -> {
             try {
                 f.get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        executor.shutdown();
+
+        executor = Executors.newFixedThreadPool(10);
+        List<Future<?>> results = new ArrayList<Future<?>>();
+        for (int i = 0; i < 10; i++) {
+            results.add(getPrimeNumber(executor, i*100,(i+1)*100-1));
+        }
+
+        results.forEach(result -> {
+            try {
+                var array = (List<Integer>)result.get();
+                for (Integer prime : array)
+                {
+                    System.out.println(prime + " ");
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             } catch (ExecutionException e) {
@@ -153,5 +179,27 @@ public class Main {
                 System.out.println("Task " + i + ", generation result:" + genResult);
             }
         };
+    }
+
+    private static Future<?> getPrimeNumber(ExecutorService executor, final int rangeStart, final int rangeEnd) {
+        var future = executor.submit(() -> {
+            ArrayList<Integer> lst = new ArrayList<Integer>();
+            for (int i = rangeStart; i < rangeEnd; i++) {
+                boolean prime = true;
+                for (int j = 2; j < i; j++) {
+                    if (i % j == 0) {
+                        prime = false;
+                        break;
+                    }
+                }
+                if (prime) {
+                 lst.add(i);
+                }
+            }
+
+            return lst;
+        });
+
+        return future;
     }
 }
