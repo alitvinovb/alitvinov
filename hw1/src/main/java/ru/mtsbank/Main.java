@@ -86,7 +86,7 @@ public class Main {
         var counter = new CounterImpl();
         var executor = Executors.newFixedThreadPool(10);
 
-        var future1 = executor.submit(() -> {
+        executor.execute(() -> {
             try {
                 Thread.sleep(400);
             } catch (Exception ex) {
@@ -94,11 +94,11 @@ public class Main {
             counter.Increment();
             System.out.println("Task1");
         });
-        var future2 = executor.submit(() -> {
+        executor.execute(() -> {
             counter.Increment();
             System.out.println("Task2");
         });
-        var future3 = executor.submit(() -> {
+        executor.execute(() -> {
             try {
                 Thread.sleep(500);
             } catch (Exception ex) {
@@ -106,7 +106,7 @@ public class Main {
             counter.Increment();
             System.out.println("Task3");
         });
-        var future4 = executor.submit(() -> {
+        executor.execute(() -> {
             try {
                 Thread.sleep(100);
             } catch (Exception ex) {
@@ -114,7 +114,7 @@ public class Main {
             counter.Increment();
             System.out.println("Task4");
         });
-        var future5 = executor.submit(() -> {
+        executor.execute(() -> {
             counter.Increment();
             System.out.println("Task5");
         });
