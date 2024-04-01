@@ -11,10 +11,7 @@ import ru.mtsbank.Services.SearchServiceImpl;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Main {
 
@@ -123,14 +120,11 @@ public class Main {
         });
         System.out.println("Counter:" + counter.GetValue());
 
-        future1.get();
-        future2.get();
-        future3.get();
-        future4.get();
-        future5.get();
+        executor.shutdown();
+        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 
         System.out.println("Counter after wait:" + counter.GetValue());
-        executor.shutdown();
+
 
         executor = Executors.newFixedThreadPool(10);
         List<Future<?>> futures = new ArrayList<Future<?>>();
@@ -151,15 +145,14 @@ public class Main {
         executor = Executors.newFixedThreadPool(10);
         List<Future<?>> results = new ArrayList<Future<?>>();
         for (int i = 0; i < 10; i++) {
-            results.add(getPrimeNumber(executor, i*100,(i+1)*100-1));
+            results.add(getPrimeNumber(executor, i * 100, (i + 1) * 100 - 1));
         }
 
         results.forEach(result -> {
             try {
-                var array = (List<Integer>)result.get();
-                for (Integer prime : array)
-                {
-                    System.out.println(prime + " ");
+                var array = (List<Integer>) result.get();
+                for (Integer prime : array) {
+                    System.out.println(prime);
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -193,7 +186,7 @@ public class Main {
                     }
                 }
                 if (prime) {
-                 lst.add(i);
+                    lst.add(i);
                 }
             }
 
