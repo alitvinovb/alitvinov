@@ -79,10 +79,10 @@ public class Main {
             System.out.println(animal.getName() + animal.getBirdthDate());
         }
 
-        Task8Parallel();
+        task8Parallel();
     }
 
-    private static void Task8Parallel() throws ExecutionException, InterruptedException {
+    private static void task8Parallel() throws ExecutionException, InterruptedException {
         var counter = new CounterImpl();
         var executor = Executors.newFixedThreadPool(10);
 
