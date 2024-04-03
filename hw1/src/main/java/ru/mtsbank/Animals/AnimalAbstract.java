@@ -14,6 +14,13 @@ public abstract class AnimalAbstract implements Animal {
         this.birdthDate = birdthDate;
         this.cost = cost;
     }
+    public AnimalAbstract(LocalDate birdthDate, Double cost, String breed, String name)
+    {
+        this.birdthDate = birdthDate;
+        this.cost = cost;
+        this.breed = breed;
+        this.name = name;
+    }
     protected String breed;
     protected String name;
     protected Double cost;

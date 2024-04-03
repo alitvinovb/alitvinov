@@ -4,23 +4,51 @@ import ru.mtsbank.Animals.*;
 import ru.mtsbank.Interfaces.Animal;
 import ru.mtsbank.Interfaces.CreateAnimalService;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
     @Override
     public void createAnimals(int number) {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+        String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\animals\\logData.txt";
+        var filePath = Path.of(fileUrl);
+        try {
+            Files.createDirectories(filePath.getParent());
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
+            }
+
+            Files.writeString(filePath, "New start: " + LocalDateTime.now().format(pattern) + "\n", StandardOpenOption.APPEND);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         Animal[] animals = new Animal[number];
 
         int i = 0;
         while (i < number) {
             if (i == 0) {
-                animals[i] = new Dog(LocalDate.of(1990 + i, i + 1, i + 1));
+                animals[i] = new Dog(LocalDate.of(1990 + i, i + 1, i + 1), 30.0, "Чихуа", "Шарик");
             } else if (i > 3) {
-                animals[i] = new Cat(LocalDate.of(1990 + i, i + 1, i + 1));
+                animals[i] = new Cat(LocalDate.of(1990 + i, i + 1, i + 1), 50.0, "Дворняга", "Мурзик");
             } else {
-                animals[i] = new Wolf(LocalDate.of(1990 + i, i + 1, i + 1));
+                animals[i] = new Wolf(LocalDate.of(1990 + i, i + 1, i + 1), 100.0, "Африканский", "Зойберг");
+            }
+            try {
+
+                Files.writeString(filePath, i + " " + animals[i].getBreed() + " " + animals[i].getName() + " " +
+                        animals[i].getCost() + " " + animals[i].getBirdthDate() + "\n", StandardOpenOption.APPEND);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
             i++;
         }

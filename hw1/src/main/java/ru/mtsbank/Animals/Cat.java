@@ -12,4 +12,8 @@ public class Cat extends Pet {
         super(birdthDate, cost);
         name = "Мурзик";
     }
+
+    public Cat(LocalDate birdthDate, Double cost, String breed, String name) {
+        super(birdthDate, cost, breed, name);
+    }
 }

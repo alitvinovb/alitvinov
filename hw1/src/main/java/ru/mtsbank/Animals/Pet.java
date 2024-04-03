@@ -13,7 +13,9 @@ public class Pet extends AnimalAbstract {
         super(birdthDate, cost);
         name = "Домашние";
     }
-
+    public Pet(LocalDate birdthDate, Double cost, String breed, String name) {
+        super(birdthDate, cost, breed, name);
+    }
     public String getBreed() {
         return breed;
     }

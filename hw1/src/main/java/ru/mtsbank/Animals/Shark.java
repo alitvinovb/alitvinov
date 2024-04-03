@@ -12,4 +12,7 @@ public class Shark extends Predator {
         super(birdthDate ,cost);
         name = "Акула";
     }
+    public Shark(LocalDate birdthDate, Double cost, String breed, String name) {
+        super(birdthDate, cost, breed, name);
+    }
 }
