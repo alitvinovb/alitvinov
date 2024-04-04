@@ -117,7 +117,7 @@ public class Main {
             String resultJson = Files.readString(readFilePath);
             var wolf = mapper.readValue(resultJson, Wolf.class);
             System.out.println("Что прочиталось: " + wolf.getBreed() + " " + wolf.getName() + " " +
-                    wolf.getCost() + " " + wolf.getBirdthDate());
+                    wolf.getCost() + " " + wolf.getBirdthDate()+ " " + wolf.getSecretInformation());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
