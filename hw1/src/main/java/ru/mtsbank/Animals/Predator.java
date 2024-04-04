@@ -16,6 +16,10 @@ public class Predator extends AnimalAbstract {
     public Predator(LocalDate birdthDate, Double cost, String breed, String name) {
         super(birdthDate, cost, breed, name);
     }
+    public Predator() {
+        super();
+    }
+
     public String getSecretInformation(){ return secretInformation;}
     public String getBreed() {
         return breed;

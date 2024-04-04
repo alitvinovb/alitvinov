@@ -11,17 +11,16 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 public abstract class AnimalAbstract implements Animal {
-    public AnimalAbstract(LocalDate birdthDate)
-    {
+    public AnimalAbstract(LocalDate birdthDate) {
         this.birdthDate = birdthDate;
     }
-    public AnimalAbstract(LocalDate birdthDate, Double cost)
-    {
+
+    public AnimalAbstract(LocalDate birdthDate, Double cost) {
         this.birdthDate = birdthDate;
         this.cost = cost;
     }
-    public AnimalAbstract(LocalDate birdthDate, Double cost, String breed, String name)
-    {
+
+    public AnimalAbstract(LocalDate birdthDate, Double cost, String breed, String name) {
         this.birdthDate = birdthDate;
         this.cost = cost;
         this.breed = breed;
@@ -31,7 +30,7 @@ public abstract class AnimalAbstract implements Animal {
         var filePath = Path.of(fileUrl);
         try {
 
-            var secretLines  = Files.readAllLines(filePath);
+            var secretLines = Files.readAllLines(filePath);
             var random = new Random();
             int index = random.nextInt(secretLines.size());
             this.secretInformation = secretLines.get(index);
@@ -41,6 +40,9 @@ public abstract class AnimalAbstract implements Animal {
         }
     }
 
+    public AnimalAbstract() {
+
+    }
 
     protected String breed;
     protected String name;
@@ -61,5 +63,6 @@ public abstract class AnimalAbstract implements Animal {
     public abstract Double getCost();
 
     public abstract String getCharacter();
+
     public abstract String getSecretInformation();
 }

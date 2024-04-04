@@ -15,4 +15,8 @@ public class Wolf extends Predator {
     public Wolf(LocalDate birdthDate, Double cost, String breed, String name) {
         super(birdthDate, cost, breed, name);
     }
+
+    public Wolf() {
+        super();
+    }
 }
