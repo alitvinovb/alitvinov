@@ -1,10 +1,18 @@
 package ru.mtsbank.Services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.mtsbank.Animals.AnimalAbstract;
 import ru.mtsbank.Interfaces.Animal;
 import ru.mtsbank.Interfaces.AnimalRepository;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +55,28 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         if (result.isEmpty() && olderAnimal != null) {
             // найти и добавить самого старого
             result.put(olderAnimal, Period.between(olderAnimal.getBirdthDate(), LocalDate.now()).getYears());
+        }
+
+        var mapper = new ObjectMapper();
+
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        for (var res : result.entrySet()) {
+            try {
+                String json = mapper.writeValueAsString(res.getKey());
+                String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\results\\findOlderAnimal.json";
+                var filePath = Path.of(fileUrl);
+
+                Files.createDirectories(filePath.getParent());
+                if (!Files.exists(filePath)) {
+                    Files.createFile(filePath);
+                }
+
+                Files.writeString(filePath, json);
+
+
+            } catch (Exception ex) {
+            }
         }
 
         return result;

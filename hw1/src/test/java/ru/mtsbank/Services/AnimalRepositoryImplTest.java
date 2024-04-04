@@ -30,7 +30,7 @@ public class AnimalRepositoryImplTest {
     public void findOlderAnimal() {
         var animalRepository = new AnimalRepositoryImpl();
         var animals = new ArrayList<AnimalAbstract>();
-        var oldWolf = new Wolf(LocalDate.of(200, 11, 1));
+        var oldWolf = new Wolf(LocalDate.of(200, 11, 1),50.0,"Волк","Полярник");
         animals.add(new Dog(LocalDate.of(2024, 1, 1)));
         animals.add(new Dog(LocalDate.of(2023, 1, 1)));
         animals.add(oldWolf);

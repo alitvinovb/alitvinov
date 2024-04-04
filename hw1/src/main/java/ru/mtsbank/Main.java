@@ -1,5 +1,8 @@
 package ru.mtsbank;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.mtsbank.Animals.*;
 import ru.mtsbank.Exceptions.InvalidAnimalBirthDateException;
 import ru.mtsbank.Exceptions.InvalidAnimalException;
@@ -9,6 +12,9 @@ import ru.mtsbank.Services.CounterImpl;
 import ru.mtsbank.Services.CreateAnimalServiceImpl;
 import ru.mtsbank.Services.SearchServiceImpl;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.*;
@@ -80,6 +86,42 @@ public class Main {
         }
 
         task8Parallel();
+
+        String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\animals\\logData.txt";
+        var filePath = Path.of(fileUrl);
+        try {
+
+            var lines = Files.readAllLines(filePath);
+            System.out.println("Количество строк: " + lines.size());
+
+        } catch (Exception ex) {
+        }
+
+        var animalRepository = new AnimalRepositoryImpl();
+        var animalAbstracts = new ArrayList<AnimalAbstract>();
+        var oldWolf = new Wolf(LocalDate.of(200, 11, 1), 50.0, "Волк", "Полярник");
+        animalAbstracts.add(new Dog(LocalDate.of(2024, 1, 1)));
+        animalAbstracts.add(new Dog(LocalDate.of(2023, 1, 1)));
+        animalAbstracts.add(oldWolf);
+        animalAbstracts.add(new Cat(LocalDate.of(2023, 1, 1)));
+
+        var findOldResult = animalRepository.findOlderAnimal(animalAbstracts, 500);
+
+        var mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        String readFileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\results\\findOlderAnimal.json";
+        var readFilePath = Path.of(readFileUrl);
+
+        try {
+            String resultJson = Files.readString(readFilePath);
+            var wolf = mapper.readValue(resultJson, Wolf.class);
+            System.out.println("Что прочиталось: " + wolf.getBreed() + " " + wolf.getName() + " " +
+                    wolf.getCost() + " " + wolf.getBirdthDate());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
 
     private static void task8Parallel() throws ExecutionException, InterruptedException {
