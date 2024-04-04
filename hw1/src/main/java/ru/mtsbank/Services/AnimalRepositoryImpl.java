@@ -2,8 +2,10 @@ package ru.mtsbank.Services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.mtsbank.Animals.AnimalAbstract;
+import ru.mtsbank.CustomSerialize.AnimalSerializer;
 import ru.mtsbank.Interfaces.Animal;
 import ru.mtsbank.Interfaces.AnimalRepository;
 
@@ -56,9 +58,11 @@ public class AnimalRepositoryImpl implements AnimalRepository {
             // найти и добавить самого старого
             result.put(olderAnimal, Period.between(olderAnimal.getBirdthDate(), LocalDate.now()).getYears());
         }
+        var module = new SimpleModule();
+        module.addSerializer(AnimalAbstract.class, new AnimalSerializer());
 
         var mapper = new ObjectMapper();
-
+        mapper.registerModule(module);
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         for (var res : result.entrySet()) {
@@ -73,8 +77,6 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                 }
 
                 Files.writeString(filePath, json);
-
-
             } catch (Exception ex) {
             }
         }

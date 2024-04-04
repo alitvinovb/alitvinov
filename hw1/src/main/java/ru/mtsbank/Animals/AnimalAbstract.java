@@ -40,6 +40,15 @@ public abstract class AnimalAbstract implements Animal {
         }
     }
 
+    public AnimalAbstract(LocalDate birdthDate, Double cost, String breed, String name, String secretInformation) {
+        this.birdthDate = birdthDate;
+        this.cost = cost;
+        this.breed = breed;
+        this.name = name;
+        this.secretInformation = secretInformation;
+    }
+
+
     public AnimalAbstract() {
 
     }

@@ -2,8 +2,11 @@ package ru.mtsbank;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.mtsbank.Animals.*;
+import ru.mtsbank.CustomSerialize.AnimalDeserializer;
+import ru.mtsbank.CustomSerialize.AnimalSerializer;
 import ru.mtsbank.Exceptions.InvalidAnimalBirthDateException;
 import ru.mtsbank.Exceptions.InvalidAnimalException;
 import ru.mtsbank.Interfaces.AnimalRepository;
@@ -107,15 +110,20 @@ public class Main {
 
         var findOldResult = animalRepository.findOlderAnimal(animalAbstracts, 500);
 
-        var mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
         String readFileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\results\\findOlderAnimal.json";
         var readFilePath = Path.of(readFileUrl);
 
         try {
             String resultJson = Files.readString(readFilePath);
-            var wolf = mapper.readValue(resultJson, Wolf.class);
+            var module = new SimpleModule();
+            module.addDeserializer(AnimalAbstract.class, new AnimalDeserializer());
+
+            var mapper = new ObjectMapper();
+            mapper.registerModule(module);
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            var wolf = mapper.readValue(resultJson, AnimalAbstract.class);
             System.out.println("Что прочиталось: " + wolf.getBreed() + " " + wolf.getName() + " " +
                     wolf.getCost() + " " + wolf.getBirdthDate()+ " " + wolf.getSecretInformation());
         } catch (Exception ex) {

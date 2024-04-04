@@ -114,7 +114,6 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
                 lst.add(animal);
                 animalMap.put(animal.getClass().getName(), lst);
             }
-
         }
 
         return animalMap;
