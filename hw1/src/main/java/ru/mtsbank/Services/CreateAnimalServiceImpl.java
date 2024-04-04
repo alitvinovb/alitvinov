@@ -53,7 +53,7 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
             i++;
         }
         for (var animal : animals) {
-            System.out.println(animal.getName() + " " + animal.getBirdthDate());
+            System.out.println(animal.getName() + " " + animal.getBirdthDate() + ", secret: " + animal.getSecretInformation());
         }
     }
 

@@ -24,6 +24,8 @@ public class Pet extends AnimalAbstract {
         return name;
     }
 
+    public String getSecretInformation(){ return secretInformation;}
+
     public Double getCost() {
         return cost;
     }

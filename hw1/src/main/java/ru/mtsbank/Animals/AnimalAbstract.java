@@ -2,7 +2,13 @@ package ru.mtsbank.Animals;
 
 import ru.mtsbank.Interfaces.Animal;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Random;
 
 public abstract class AnimalAbstract implements Animal {
     public AnimalAbstract(LocalDate birdthDate)
@@ -20,11 +26,27 @@ public abstract class AnimalAbstract implements Animal {
         this.cost = cost;
         this.breed = breed;
         this.name = name;
+
+        String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\secretStore\\secretInformation.txt";
+        var filePath = Path.of(fileUrl);
+        try {
+
+            var secretLines  = Files.readAllLines(filePath);
+            var random = new Random();
+            int index = random.nextInt(secretLines.size());
+            this.secretInformation = secretLines.get(index);
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
+
+
     protected String breed;
     protected String name;
     protected Double cost;
     protected String character;
+    protected String secretInformation;
 
     public LocalDate getBirdthDate() {
         return birdthDate;
@@ -39,5 +61,5 @@ public abstract class AnimalAbstract implements Animal {
     public abstract Double getCost();
 
     public abstract String getCharacter();
-
+    public abstract String getSecretInformation();
 }

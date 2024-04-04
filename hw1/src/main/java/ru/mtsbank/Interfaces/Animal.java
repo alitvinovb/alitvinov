@@ -13,4 +13,5 @@ public interface Animal {
     public String getCharacter();
 
     public LocalDate getBirdthDate();
+    public String getSecretInformation();
 }
