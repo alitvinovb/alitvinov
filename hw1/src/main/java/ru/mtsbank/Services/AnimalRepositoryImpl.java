@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import ru.mtsbank.Animals.AnimalAbstract;
+import ru.mtsbank.Constants;
 import ru.mtsbank.CustomSerialize.AnimalSerializer;
 import ru.mtsbank.Interfaces.Animal;
 import ru.mtsbank.Interfaces.AnimalRepository;
@@ -68,7 +69,7 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         for (var res : result.entrySet()) {
             try {
                 String json = mapper.writeValueAsString(res.getKey());
-                String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\results\\findOlderAnimal.json";
+                String fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.OLD_ANIMAL_JSON_URL;
                 var filePath = Path.of(fileUrl);
 
                 Files.createDirectories(filePath.getParent());

@@ -1,5 +1,6 @@
 package ru.mtsbank.Animals;
 
+import ru.mtsbank.Constants;
 import ru.mtsbank.Interfaces.Animal;
 
 import java.nio.file.Files;
@@ -30,7 +31,7 @@ public abstract class AnimalAbstract implements Animal {
         this.breed = breed;
         this.name = name;
 
-        String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\secretStore\\secretInformation.txt";
+        String fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.SECRET_URL;
         var filePath = Path.of(fileUrl);
         try {
 
@@ -61,6 +62,11 @@ public abstract class AnimalAbstract implements Animal {
 
     public LocalDate getBirdthDate() {
         return birdthDate;
+    }
+
+    public String toString() {
+        return this.getBreed() + " " + this.getName() + " " +
+                this.getCost() + " " + this.getBirdthDate() + " " + this.getSecretInformation();
     }
 
     public abstract String getBreed();

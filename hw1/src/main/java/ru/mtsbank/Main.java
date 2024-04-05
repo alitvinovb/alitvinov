@@ -90,7 +90,7 @@ public class Main {
 
         task8Parallel();
 
-        String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\animals\\logData.txt";
+        var fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.LOG_URL;
         var filePath = Path.of(fileUrl);
         try {
 
@@ -110,12 +110,11 @@ public class Main {
 
         var findOldResult = animalRepository.findOlderAnimal(animalAbstracts, 500);
 
-
-        String readFileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\results\\findOlderAnimal.json";
+        var readFileUrl = Paths.get("").toAbsolutePath().toString() + Constants.OLD_ANIMAL_JSON_URL;
         var readFilePath = Path.of(readFileUrl);
 
         try {
-            String resultJson = Files.readString(readFilePath);
+            var resultJson = Files.readString(readFilePath);
             var module = new SimpleModule();
             module.addDeserializer(AnimalAbstract.class, new AnimalDeserializer());
 
@@ -123,9 +122,9 @@ public class Main {
             mapper.registerModule(module);
             mapper.registerModule(new JavaTimeModule());
             mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
             var wolf = mapper.readValue(resultJson, AnimalAbstract.class);
-            System.out.println("Что прочиталось: " + wolf.getBreed() + " " + wolf.getName() + " " +
-                    wolf.getCost() + " " + wolf.getBirdthDate()+ " " + wolf.getSecretInformation());
+            System.out.println("Что прочиталось: " + wolf.toString());
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

@@ -1,6 +1,7 @@
 package ru.mtsbank.Services;
 
 import ru.mtsbank.Animals.*;
+import ru.mtsbank.Constants;
 import ru.mtsbank.Interfaces.Animal;
 import ru.mtsbank.Interfaces.CreateAnimalService;
 
@@ -19,7 +20,7 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
     public void createAnimals(int number) {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
-        String fileUrl = Paths.get("").toAbsolutePath().toString() + "\\resources\\animals\\logData.txt";
+        String fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.LOG_URL;
         var filePath = Path.of(fileUrl);
         try {
             Files.createDirectories(filePath.getParent());
@@ -45,8 +46,7 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
             }
             try {
 
-                Files.writeString(filePath, i + " " + animals[i].getBreed() + " " + animals[i].getName() + " " +
-                        animals[i].getCost() + " " + animals[i].getBirdthDate() + "\n", StandardOpenOption.APPEND);
+                Files.writeString(filePath, i + " " + animals[i].toString() + "\n", StandardOpenOption.APPEND);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
