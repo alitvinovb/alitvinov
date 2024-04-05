@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 public abstract class AnimalAbstract implements Animal {
+    public AnimalAbstract() {
+    }
+
     public AnimalAbstract(LocalDate birdthDate) {
+
         this.birdthDate = birdthDate;
     }
 
@@ -48,22 +52,16 @@ public abstract class AnimalAbstract implements Animal {
         this.secretInformation = secretInformation;
     }
 
-
-    public AnimalAbstract() {
-
-    }
-
     protected String breed;
     protected String name;
     protected Double cost;
     protected String character;
     protected String secretInformation;
+    protected LocalDate birdthDate;
 
     public LocalDate getBirdthDate() {
         return birdthDate;
     }
-
-    protected LocalDate birdthDate;
 
     public abstract String getBreed();
 

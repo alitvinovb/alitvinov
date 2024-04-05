@@ -1,13 +1,11 @@
 package ru.mtsbank.CustomSerialize;
 
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.DoubleNode;
-import com.fasterxml.jackson.databind.node.IntNode;
 import ru.mtsbank.Animals.AnimalAbstract;
 import ru.mtsbank.Animals.AnimalNonAbstract;
 
@@ -35,7 +33,8 @@ public class AnimalDeserializer extends StdDeserializer<AnimalAbstract> {
         String secretInformation = "";
         try {
             secretInformation = new String(Base64.getDecoder().decode(node.get("secretInformation").asText()));
-        }catch (Exception ex) {}
+        } catch (Exception ex) {
+        }
         Double cost = (Double) ((DoubleNode) node.get("cost")).numberValue();
         String bDay = node.get("birdthDate").asText();
 
