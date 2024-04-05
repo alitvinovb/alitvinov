@@ -34,7 +34,6 @@ public abstract class AnimalAbstract implements Animal {
         String fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.SECRET_URL;
         var filePath = Path.of(fileUrl);
         try {
-
             var secretLines = Files.readAllLines(filePath);
             var random = new Random();
             int index = random.nextInt(secretLines.size());

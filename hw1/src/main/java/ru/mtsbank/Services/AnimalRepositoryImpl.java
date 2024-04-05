@@ -68,15 +68,14 @@ public class AnimalRepositoryImpl implements AnimalRepository {
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         for (var res : result.entrySet()) {
             try {
-                String json = mapper.writeValueAsString(res.getKey());
-                String fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.OLD_ANIMAL_JSON_URL;
+                var json = mapper.writeValueAsString(res.getKey());
+                var fileUrl = Paths.get("").toAbsolutePath().toString() + Constants.OLD_ANIMAL_JSON_URL;
                 var filePath = Path.of(fileUrl);
 
                 Files.createDirectories(filePath.getParent());
                 if (!Files.exists(filePath)) {
                     Files.createFile(filePath);
                 }
-
                 Files.writeString(filePath, json);
             } catch (Exception ex) {
             }
