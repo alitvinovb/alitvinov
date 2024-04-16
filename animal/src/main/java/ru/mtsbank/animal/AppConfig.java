@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import ru.mtsbank.animal.animals.Wolf;
+import ru.mtsbank.animal.services.AnimalRepositoryImpl;
+import ru.mtsbank.animal.services.CreateAnimalServiceImpl;
 
 import java.time.LocalDate;
 import java.util.Random;
@@ -38,6 +40,20 @@ public class AppConfig {
         int index = rnd.nextInt(names.length);
 
         return new Wolf(LocalDate.of(2024,1,2),names[index]);
+    }
+
+    @Bean(name = "animalServiceImpl")
+    @Scope("prototype")
+    public CreateAnimalServiceImpl getAnimalServiceImpl() {
+
+        return new CreateAnimalServiceImpl();
+    }
+
+    @Bean(name = "animalRepositoryImpl")
+    @Scope("prototype")
+    public AnimalRepositoryImpl getAnimalRepositoryImpl() {
+
+        return new AnimalRepositoryImpl();
     }
 
 }
