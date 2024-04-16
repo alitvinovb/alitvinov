@@ -8,6 +8,11 @@ public class Wolf extends Predator {
         name ="Волк";
     }
 
+    public Wolf(LocalDate birdthDate, String name) {
+        super(birdthDate);
+        this.name = name;
+    }
+
     public Wolf(LocalDate birdthDate, Double cost) {
         super(birdthDate, cost);
         name ="Волк";
