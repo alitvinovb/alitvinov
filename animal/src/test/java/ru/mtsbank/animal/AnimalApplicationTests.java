@@ -76,31 +76,31 @@ class AnimalApplicationTests {
 	}
 
 	@Test
-	public void findOlderAnimal() {
-		var animalRepository = new AnimalRepositoryImpl();
+	public void finDuplicate() {
 		var animals = new ArrayList<AnimalAbstract>();
-		var oldWolf = new Wolf(LocalDate.of(200, 11, 1),50.0,"Волк","Полярник");
+		var oldWolf = new Wolf(LocalDate.of(200, 11, 1));
 		animals.add(new Dog(LocalDate.of(2024, 1, 1)));
-		animals.add(new Dog(LocalDate.of(2023, 1, 1)));
+		animals.add(new Dog(LocalDate.of(2024, 1, 1)));
 		animals.add(oldWolf);
 		animals.add(new Cat(LocalDate.of(2023, 1, 1)));
 
-		var result = animalRepository.findOlderAnimal(animals, 500);
-		assertThat(result.size()).isEqualTo(1);
-		assertThat(oldWolf.getBirdthDate()).isEqualTo(result.keySet().iterator().next().getBirdthDate());
+		var result = animalRepoImpl.findDuplicate(animals);
+		Long count = result.get("Собака");
+		assertThat(count).isEqualTo(2);
+
 	}
 
 	@Test
-	public void findOlderAnimalBad() {
-		var animalRepository = new AnimalRepositoryImpl();
+	public void finDuplicateBad() {
 		var animals = new ArrayList<AnimalAbstract>();
-		var oldWolf = new Wolf(LocalDate.of(200, 11, 1),50.0,"Волк","Полярник");
+		var oldWolf = new Wolf(LocalDate.of(200, 11, 1));
 		animals.add(new Dog(LocalDate.of(2024, 1, 1)));
-		animals.add(new Dog(LocalDate.of(2023, 1, 1)));
+		animals.add(new Dog(LocalDate.of(2024, 1, 1)));
 		animals.add(oldWolf);
 		animals.add(new Cat(LocalDate.of(2023, 1, 1)));
 
-		var result = animalRepository.findOlderAnimal(animals, 2000);
-		assertThat(result.size()).isEqualTo(1);
+		var result = animalRepoImpl.findDuplicate(animals);
+		Long count = result.get("Собака");
+		assertThat(count).isEqualTo(3);
 	}
 }
