@@ -2,10 +2,7 @@ package ru.mtsbank.animal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import ru.mtsbank.animal.animals.Wolf;
@@ -16,6 +13,7 @@ import java.time.LocalDate;
 import java.util.Random;
 
 @Configuration
+@ComponentScan("ru.mtsbank.animal.services")
 @PropertySource("classpath:application.properties")
 
 public class AppConfig {
@@ -33,7 +31,7 @@ public class AppConfig {
     Environment env;
     env.getProperty("spring.application.name")*/
 
-    @Bean(name ="wolf")
+    @Bean()
     @Scope("prototype")
     public Wolf getWolf() {
         var rnd = new Random();
@@ -41,19 +39,4 @@ public class AppConfig {
 
         return new Wolf(LocalDate.of(2024,1,2),names[index]);
     }
-
-    @Bean(name = "animalServiceImpl")
-    @Scope("prototype")
-    public CreateAnimalServiceImpl getAnimalServiceImpl() {
-
-        return new CreateAnimalServiceImpl();
-    }
-
-    @Bean(name = "animalRepositoryImpl")
-    @Scope("prototype")
-    public AnimalRepositoryImpl getAnimalRepositoryImpl() {
-
-        return new AnimalRepositoryImpl();
-    }
-
 }

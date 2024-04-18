@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import ru.mtsbank.animal.animals.*;
@@ -27,8 +28,20 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
-
+@Service
 public class AnimalRepositoryImpl implements AnimalRepository {
+    // @Autowired
+    private final CreateAnimalServiceImpl createImpl;
+
+    public AnimalRepositoryImpl(CreateAnimalServiceImpl createImpl) {
+        this.createImpl = createImpl;
+    }
+    @PostConstruct
+    public void initService()
+    {
+        createImpl.createAnimals(5);
+
+    }
     public Map<String, LocalDate> findLeapYearNames(List<AnimalAbstract> animals) {
         if (animals == null)
             return null;
@@ -127,18 +140,5 @@ public class AnimalRepositoryImpl implements AnimalRepository {
                 .collect(Collectors.toList());
 
         return result;
-    }
-
-    public AnimalRepositoryImpl() {
-
-    }
-
-    @Autowired
-    private CreateAnimalServiceImpl createImpl;
-
-    @PostConstruct
-    public void initService()
-    {
-        createImpl.createAnimals(5);
     }
 }

@@ -1,5 +1,7 @@
 package ru.mtsbank.animal.services;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.mtsbank.animal.animals.*;
 import ru.mtsbank.animal.constants.*;
 import ru.mtsbank.animal.interfaces.*;
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+@Service
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
     @Override

@@ -21,10 +21,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @TestPropertySource("classpath:application-test.properties")
 class AnimalApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
-
 	@Autowired
 	private Wolf wolf;
 
